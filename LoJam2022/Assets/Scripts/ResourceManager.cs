@@ -19,8 +19,12 @@ public class ResourceManager : MonoBehaviour
     [SerializeField]
     private float percentageChangeToIncrease;
 
+    [SerializeField]
+    private int clicksToRedeem;
+
     private float totalScore;
     private float remainingCooldown = 0;
+    private int currentClicks = 0;
 
     private void Awake()
     {
@@ -54,12 +58,28 @@ public class ResourceManager : MonoBehaviour
         return totalScore;
     }
 
+    public void GetClicks(ref int current, ref int total)
+    {
+        current = currentClicks;
+        total = clicksToRedeem;
+    }
+
     public void ActivePress()
     {
         if (remainingCooldown > 0f)
         {
             return;
         }
+        if (currentClicks < clicksToRedeem)
+        {
+            currentClicks++;
+            if (currentClicks < clicksToRedeem)
+            {
+                //Still less..return.
+                return;
+            }
+        }
+        currentClicks = 0;
         remainingCooldown = cooldown;
         float roll = Random.Range(0f, 1f);
         if (roll <= percentageChangeToIncrease / 100f )
