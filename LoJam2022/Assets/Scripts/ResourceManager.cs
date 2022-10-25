@@ -61,7 +61,7 @@ public class ResourceManager : MonoBehaviour
             return;
         }
         remainingCooldown = cooldown;
-        float roll = Random.Range(0.1f, 1f);
+        float roll = Random.Range(0f, 1f);
         if (roll <= percentageChangeToIncrease / 100f )
         {
             Debug.Log("Successful Roll");
