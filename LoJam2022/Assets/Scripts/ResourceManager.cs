@@ -22,6 +22,8 @@ public class ResourceManager : MonoBehaviour
     [SerializeField]
     private int clicksToRedeem;
 
+    private Subject subject = new Subject();
+
     private float totalScore;
     private float remainingCooldown = 0;
     private int currentClicks = 0;
@@ -33,7 +35,11 @@ public class ResourceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        IObserver ach = GameObject.FindGameObjectWithTag("Achievements")?.GetComponent<Achievements>();
+        if (ach != null)
+        {
+            subject.AddObserver(ref ach);
+        }
     }
 
     // Update is called once per frame
@@ -58,6 +64,11 @@ public class ResourceManager : MonoBehaviour
         return totalScore;
     }
 
+    public void IncreaseChance(float increment)
+    {
+        percentageChangeToIncrease += increment;
+    }
+
     public void GetClicks(ref int current, ref int total)
     {
         current = currentClicks;
@@ -70,6 +81,7 @@ public class ResourceManager : MonoBehaviour
         {
             return;
         }
+        subject.Notify(eEvent.ClickRibbon);
         if (currentClicks < clicksToRedeem)
         {
             currentClicks++;

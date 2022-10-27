@@ -29,6 +29,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI livesTotal;
 
+    [SerializeField]
+    private AchievementUI achievementUI;
+
     private int DEBUG_current;
     private int DEBUG_total;
 
@@ -44,7 +47,7 @@ public class UIManager : MonoBehaviour
     {
         livesManager.GetClicks(ref DEBUG_current, ref DEBUG_total);
 
-        UpdateLabel(fundraisingLabel, fundraisingManager.GetTotal());
+        UpdateLabel(fundraisingLabel, fundraisingManager.GetTotal(), "$");
         UpdateLabel(livesLabel, livesManager.GetTotal());
         //UpdateLabel(fundraisingCooldown, fundraisingManager.GetRemainingCooldown());
         //UpdateLabel(livesCooldown, livesManager.GetRemainingCooldown());
@@ -53,8 +56,13 @@ public class UIManager : MonoBehaviour
 
     }
 
-    void UpdateLabel(TextMeshProUGUI label, float value)
+    void UpdateLabel(TextMeshProUGUI label, float value, string prefix = "")
     {
-        label.text = value.ToString("n0");
+        label.text = prefix + value.ToString("n0");
+    }
+
+    public void PopAchievement(Achievement ach)
+    {
+        achievementUI.PopUp(ach);
     }
 }
