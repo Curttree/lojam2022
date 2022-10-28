@@ -1,5 +1,8 @@
 public enum eEvent
 {
     ClickRibbon,
-    PurchaseUpgrade
+    PurchaseUpgrade,
+    RibbonSuccess,
+    RibbonFail,
+    AchievementUnlocked
 }

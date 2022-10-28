@@ -35,6 +35,12 @@ public class ResourceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        IObserver audioManager = GameObject.FindGameObjectWithTag("AudioManager")?.GetComponent<AudioManager>();
+        if (audioManager != null)
+        {
+            subject.AddObserver(ref audioManager);
+        }
+
         IObserver ach = GameObject.FindGameObjectWithTag("Achievements")?.GetComponent<Achievements>();
         if (ach != null)
         {
@@ -97,10 +103,12 @@ public class ResourceManager : MonoBehaviour
         if (roll <= percentageChangeToIncrease / 100f )
         {
             Debug.Log("Successful Roll");
+            subject.Notify(eEvent.RibbonSuccess);
             totalScore += gainPerInteraction;
         }
         else
         {
+            subject.Notify(eEvent.RibbonFail);
             Debug.Log("Unsuccessful Roll");
         }
     }

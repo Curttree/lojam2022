@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AchievementUI : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class AchievementUI : MonoBehaviour
     private TextMeshProUGUI factoid;
     [SerializeField]
     private TextMeshProUGUI effect;
+    [SerializeField]
+    private Image icon;
 
     bool active;
     float displayedTime;
@@ -39,6 +42,7 @@ public class AchievementUI : MonoBehaviour
         title.text = ach.Name;
         factoid.text = ach.Factoid;
         effect.text = ach.BonusEffectDescription;
+        icon.sprite = ach.Icon;
         for (int index = 0; index < transform.childCount; index++)
         {
             transform.GetChild(index).gameObject.SetActive(true);
