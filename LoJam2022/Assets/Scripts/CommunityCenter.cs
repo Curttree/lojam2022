@@ -29,7 +29,6 @@ public class CommunityCenter : Building
     }
     public void PurchaseCounsellor()
     {
-        base.Purchase();
         ribbonManager.IncreaseChance(count * peopleManager.GetCounsellorBuff());
         StartCoroutine(CollectInterest());
     }

@@ -11,13 +11,21 @@ public class PeopleManager : MonoBehaviour
     private int nurses;
     private int counsellors;
     private int doctors;
+    private int orderInLayer = 2;
+    private bool FirstDoorToDoor = true;
 
+    [SerializeField]
+    private float doorToDoorPassive;
     [SerializeField]
     private float nurseBuff;
     [SerializeField]
     private float counsellorBuff;
     [SerializeField]
     private float doctorBuff;
+    [SerializeField]
+    private List<GameObject> people;
+    [SerializeField]
+    private UpgradeButton doorTodoorUpgrade;
 
 
     // Start is called before the first frame update
@@ -80,5 +88,43 @@ public class PeopleManager : MonoBehaviour
     public float GetCounsellorBuff()
     {
         return counsellorBuff * ribbonManager.GetTotal();
+    }
+
+    public void DoorToDoor(int cost)
+    {
+        if (!FirstDoorToDoor)
+        {
+            moneyManager.IncreaseTotal(-cost);
+        }
+        else
+        {
+            doorTodoorUpgrade.freeFirst = false;
+        }
+        SpawnCharacter(-1);
+        StartCoroutine(GoDoorToDoor());
+    }
+    IEnumerator GoDoorToDoor()
+    {
+        for (; ; )
+        {
+            yield return new WaitForSeconds(doorToDoorPassive);
+            ribbonManager.DoorToDoor(false);
+        }
+    }
+
+    public void SpawnCharacter(int specificPerson = -1)
+    {
+        if (specificPerson >= 0 && specificPerson < people.Count)
+        {
+            GameObject newbie = Instantiate(people[specificPerson]);
+            newbie.GetComponent<SpriteRenderer>().sortingOrder = orderInLayer;
+            orderInLayer++;
+        }
+        else
+        {
+            GameObject newbie = Instantiate(people[Random.Range(0, people.Count)]);
+            newbie.GetComponent<SpriteRenderer>().sortingOrder = orderInLayer;
+            orderInLayer++;
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour, IObserver
 {
@@ -16,6 +17,10 @@ public class AudioManager : MonoBehaviour, IObserver
     private AudioSource ribbonSuccess;
     [SerializeField]
     private AudioSource ribbonFail;
+    bool shouldMute = true;
+    public Image muteButton;
+    public Sprite muteButtonMuted;
+    public Sprite muteButtonActive;
 
     public void onNotify(eEvent triggeredEvent)
     {
@@ -50,14 +55,23 @@ public class AudioManager : MonoBehaviour, IObserver
         
     }
 
-    public void Mute(bool shouldMute)
+    public void ToggleMute()
     {
+        if (shouldMute)
+        {
+            muteButton.sprite = muteButtonMuted;
+        }
+        else
+        {
+            muteButton.sprite = muteButtonActive;
+        }
         bg.mute = shouldMute;
         achievement.mute = shouldMute;
         click.mute = shouldMute;
         locked.mute = shouldMute;
         ribbonSuccess.mute = shouldMute;
         ribbonFail.mute = shouldMute;
+        shouldMute = !shouldMute;
     }
     public void ModifyVolume(float value)
     {

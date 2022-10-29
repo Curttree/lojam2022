@@ -9,6 +9,7 @@ public class UpgradeButton : MonoBehaviour
     public bool requiresBuilding = false;
     public Building requiredBuilding;
     public int cost;
+    public bool freeFirst = false;
     //TODO: Remove direct reference. Have an intermediate class that can redirect to proper spot.
     public ResourceManager moneyManager;
     private Image image;
@@ -26,7 +27,7 @@ public class UpgradeButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isActive && moneyManager.GetTotal() >= cost && (!requiresBuilding || requiredBuilding.isActive))
+        if (freeFirst || (!isActive && moneyManager.GetTotal() >= cost && (!requiresBuilding || requiredBuilding.isActive)))
         {
             image.color = Color.white;
             button.enabled = true;

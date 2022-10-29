@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Billboard : Building
 {
+    Marketing marketing;
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
+        marketing = gameObject.GetComponent<Marketing>();
     }
 
     // Update is called once per frame
@@ -17,8 +19,12 @@ public class Billboard : Building
     }
     public override void Purchase()
     {
+        if (isActive)
+        {
+            marketing.ClearCampaign();
+            return;
+        }
         base.Purchase();
-        //StartCoroutine(CollectInterest());
     }
 
 }

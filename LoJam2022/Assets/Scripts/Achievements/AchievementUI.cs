@@ -28,6 +28,7 @@ public class AchievementUI : MonoBehaviour
             if (displayedTime >= maxDisplayTime)
             {
                 active = false;
+                displayedTime = 0;
                 for(int index = 0; index < transform.childCount; index++)
                 {
                     transform.GetChild(index).gameObject.SetActive(false);

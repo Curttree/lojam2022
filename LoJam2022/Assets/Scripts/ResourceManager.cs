@@ -40,6 +40,8 @@ public class ResourceManager : MonoBehaviour
     private float remainingCooldown = 0;
     private int currentClicks = 0;
 
+    private bool oneThousand;
+
     private void Awake()
     {
     }
@@ -207,6 +209,12 @@ public class ResourceManager : MonoBehaviour
     private void UpdatePassiveScore()
     {
         totalScore += passiveGainPerSecond * Time.deltaTime;
+        //Total hack.
+        if (!oneThousand && label=="Fundraising" && totalScore >= 1000f)
+        {
+            oneThousand = true;
+            subject.Notify(eEvent.OneThousand);
+        }
     }
     
 }

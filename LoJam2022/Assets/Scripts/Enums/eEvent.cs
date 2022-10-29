@@ -5,5 +5,7 @@ public enum eEvent
     PurchaseUpgrade,
     RibbonSuccess,
     RibbonFail,
-    AchievementUnlocked
+    AchievementUnlocked,
+    HospitalPurchase,
+    OneThousand
 }

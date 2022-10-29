@@ -13,6 +13,8 @@ public class Achievements : MonoBehaviour, IObserver
     private int lifetimeClicks;
     private Subject subject = new Subject();
 
+    bool perseveranceUnlocked = false;
+
     //TODO: Remove direct reference. Have an intermediate class that can redirect to proper spot.
     public ResourceManager lifeManager;
 
@@ -24,14 +26,12 @@ public class Achievements : MonoBehaviour, IObserver
             subject.AddObserver(ref audioManager);
         }
 
-        achievementList.Add(eAchievement.TheFightHasBegun, new Achievement("The fight has just begun", achievementIcons[0], "'The willpower to keep going is the number one determinant of remission'", "Gives passive +0.1% chance to save a life"));
-        achievementList.Add(eAchievement.KnowledgeIsPower, new Achievement("Knowledge is power", achievementIcons[0], "'Leukemia makes up about 3.2 percent of all cancer types in the U.S.'", "Gives passive +0.1% chance to save a life"));
-        achievementList.Add(eAchievement.Perseverance, new Achievement("Perseverance", achievementIcons[0], "'Willpower is an important factor in the fight against Lukemia'", "Gives passive +0.1% chance to save a life"));
+        achievementList.Add(eAchievement.TheFightHasBegun, new Achievement("The fight has just begun", achievementIcons[0], "'Every 24 minutes, someone in Canada is diagnosed with a blood cancer'", "Gives passive +0.1% chance to save a life"));
+        achievementList.Add(eAchievement.Perseverance, new Achievement("Perseverance", achievementIcons[0], "'Willpower is an important factor in the fight against Lukemia'", "Gives passive +2.0% chance to save a life"));
         achievementList.Add(eAchievement.TopFundraiser, new Achievement("Top fundraiser", achievementIcons[0], "''", "Gives passive +0.1% chance to save a life"));
         achievementList.Add(eAchievement.CuttingEdge, new Achievement("Cutting edge", achievementIcons[0], "'Researchers are developing targeted therapies that are better for the wellbeing of patients'", "Gives passive +0.1% chance to save a life"));
-        achievementList.Add(eAchievement.ABrighterTomorrow, new Achievement("A brighter tomorrow", achievementIcons[0], "'Leukemia Mortality rates have fallen by approximately 2% every year since 2009'", "Gives passive +0.1% chance to save a life"));
-        achievementList.Add(eAchievement.CelebritySpokesperson, new Achievement("Celebrity spokesperson", achievementIcons[0], "''", "Gives passive +0.1% chance to save a life"));
-        achievementList.Add(eAchievement.FundsOfFury, new Achievement("Funds of fury", achievementIcons[0], "'Donations propel life-enhancing research into blood cancer treatments'", "Gives passive +0.1% chance to save a life"));
+        achievementList.Add(eAchievement.ABrighterTomorrow, new Achievement("A brighter tomorrow", achievementIcons[0], "'Leukemia Mortality rates have fallen by approximately 2% every year since 2009'", "Gives passive +2.0% chance to save a life"));
+        achievementList.Add(eAchievement.FundsOfFury, new Achievement("Funds of fury", achievementIcons[0], "'Donations propel life-enhancing research into blood cancer treatments'", "Gives passive +2.0% chance to save a life"));
         achievementList.Add(eAchievement.Hope, new Achievement("Hope", achievementIcons[0], "'The 5-year relative survival rate for all types of leukemia is 65 percent'", "Gives passive +0.1% chance to save a life"));
         achievementList.Add(eAchievement.InspiringKindness, new Achievement("Inspiring kindness", achievementIcons[0], "''", "Gives passive +0.1% chance to save a life"));
     }
@@ -42,6 +42,15 @@ public class Achievements : MonoBehaviour, IObserver
         {
             case eEvent.ClickRibbon:
                 clickAchievementProgress();
+                break;
+            case eEvent.RibbonSuccess:
+                lifeAchievementProgress();
+                break;
+            case eEvent.HospitalPurchase:
+                Unlock(eAchievement.ABrighterTomorrow);
+                break;
+            case eEvent.OneThousand:
+                Unlock(eAchievement.FundsOfFury);
                 break;
             default:
                 break;
@@ -56,6 +65,13 @@ public class Achievements : MonoBehaviour, IObserver
         if (lifetimeClicks == 25)
         {
             Unlock(eAchievement.TheFightHasBegun);
+        }
+    }
+    private void lifeAchievementProgress()
+    {
+        if (!perseveranceUnlocked && lifeManager.GetTotal() >= 4)
+        {
+            Unlock(eAchievement.Perseverance);
         }
     }
 
@@ -73,6 +89,15 @@ public class Achievements : MonoBehaviour, IObserver
         {
             case eAchievement.TheFightHasBegun:
                 lifeManager.IncreaseChance(0.1f);
+                break;
+            case eAchievement.Perseverance:
+                lifeManager.IncreaseChance(2.0f);
+                break;
+            case eAchievement.ABrighterTomorrow:
+                lifeManager.IncreaseChance(2.0f);
+                break;
+            case eAchievement.FundsOfFury:
+                lifeManager.IncreaseChance(2.0f);
                 break;
             default:
                 Debug.Log($"Missing effect for achievement: {achievementList[achievement].Name}");
