@@ -24,6 +24,7 @@ public class ResourceManager : MonoBehaviour
 
     private Subject subject = new Subject();
 
+    [SerializeField]
     private float totalScore;
     private float remainingCooldown = 0;
     private int currentClicks = 0;

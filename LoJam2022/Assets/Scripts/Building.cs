@@ -6,6 +6,7 @@ public class Building : MonoBehaviour
 {
     public bool isActive;
     public int cost;
+    public int count;
 
     private SpriteRenderer sprite;
 
@@ -31,7 +32,11 @@ public class Building : MonoBehaviour
 
     public virtual void Purchase()
     {
-        //TODO: Add a check on the button to make sure you have enough money.
+        if (isActive)
+        {
+            count++;
+            return;
+        }
         moneyManager.IncreaseTotal(-cost);
         isActive = true; 
         if (sprite)
