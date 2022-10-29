@@ -74,7 +74,10 @@ public class ResourceManager : MonoBehaviour
     {
         percentageChangeToIncrease += increment;
     }
-
+    public void IncreaseTotal(float increment)
+    {
+        totalScore += increment;
+    }
     public void GetClicks(ref int current, ref int total)
     {
         current = currentClicks;
