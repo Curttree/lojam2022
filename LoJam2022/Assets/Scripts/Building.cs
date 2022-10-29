@@ -11,6 +11,7 @@ public class Building : MonoBehaviour
 
     //TODO: Remove direct reference. Have an intermediate class that can redirect to proper spot.
     public ResourceManager moneyManager;
+    public PeopleManager peopleManager;
 
     // Start is called before the first frame update
     protected virtual void Start()

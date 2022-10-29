@@ -30,6 +30,7 @@ public class Bank : Building
         {
             //TODO: Check to see how many bankers exist.
             float interest = moneyManager.GetTotal() * 0.01f;
+            interest += peopleManager.GetBankerCount() * 0.05f;
             moneyManager.IncreaseTotal(interest); 
             m_Animator.SetTrigger("Active");
             yield return new WaitForSeconds(6f);
