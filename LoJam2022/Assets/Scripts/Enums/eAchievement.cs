@@ -1,4 +1,13 @@
 public enum eAchievement
 {
-    TheFightHasBegun
+    TheFightHasBegun,
+    KnowledgeIsPower,
+    Perseverance,
+    TopFundraiser,
+    CuttingEdge,
+    ABrighterTomorrow,
+    CelebritySpokesperson,
+    FundsOfFury,
+    Hope,
+    InspiringKindness
 }

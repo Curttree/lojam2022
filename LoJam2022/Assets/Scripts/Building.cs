@@ -32,11 +32,7 @@ public class Building : MonoBehaviour
 
     public virtual void Purchase()
     {
-        if (isActive)
-        {
-            count++;
-            return;
-        }
+        count++;
         moneyManager.IncreaseTotal(-cost);
         isActive = true; 
         if (sprite)

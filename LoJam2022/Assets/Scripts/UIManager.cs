@@ -48,7 +48,7 @@ public class UIManager : MonoBehaviour
         livesManager.GetClicks(ref DEBUG_current, ref DEBUG_total);
 
         UpdateLabel(fundraisingLabel, fundraisingManager.GetTotal(), "$");
-        UpdateLabel(livesLabel, livesManager.GetTotal());
+        UpdateLabel(livesLabel, livesManager.GetTotal(), "Lives Saved: ");
         //UpdateLabel(fundraisingCooldown, fundraisingManager.GetRemainingCooldown());
         //UpdateLabel(livesCooldown, livesManager.GetRemainingCooldown());
         UpdateLabel(livesCurrent, DEBUG_current);
